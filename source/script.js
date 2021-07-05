@@ -98,6 +98,10 @@ function populateCircleOne(response) {
   let maxTemp = Math.round(response.data.main.temp_max);
   let tempRangeHigh = document.querySelector("#high");
   tempRangeHigh.innerHTML = `${maxTemp}°`;
+
+  let pngIdentifier = response.data.weather[0].icon;
+  let weatherIcon = document.querySelector("#weather-icon");
+  weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${pngIdentifier}@2x.png`); 
+
 }
 
-search("New York");
