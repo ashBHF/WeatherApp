@@ -103,5 +103,7 @@ function populateCircleOne(response) {
   let weatherIcon = document.querySelector("#weather-icon");
   weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${pngIdentifier}@2x.png`); 
 
+  console.log(response.data);
+
 }
 

@@ -14,6 +14,12 @@ body {
   margin-right: 15px;
 }
 
+.date {
+  text-align: center;
+  padding-top: 20px;
+  font-size: 25px;
+  font-weight: 300;
+}
 .first-circle {
   border: 1px solid #240403a9;
   border-radius: 50%;
@@ -29,6 +35,7 @@ body {
   margin-top: 30px;
 }
 
+
 .city {
   padding-top: 30px;
   font-weight: 400;
@@ -38,6 +45,18 @@ body {
 .weather {
   font-weight: 400;
   font-size: 14px;
+  margin-left: -5px;
+}
+
+#weather-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.weather-pic-combo {
+  margin-top: -10px;
+  margin-bottom: -10px;
 }
 
 #number {
@@ -74,11 +93,6 @@ body {
 */
 .temp-range {
   font-weight: 300;
-  font-size: 14px;
-}
-
-.date {
-  font-weight: 400;
   font-size: 14px;
 }
 
