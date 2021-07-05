@@ -103,7 +103,14 @@ function populateCircleOne(response) {
   let weatherIcon = document.querySelector("#weather-icon");
   weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${pngIdentifier}@2x.png`); 
 
-  console.log(response.data);
+  let windSummary = response.data.wind.speed;
+  let windSpeed = document.querySelector(".wind-speed");
+  windSpeed.innerHTML = `wind: ${windSummary} meters/sec`;
+
+  let humiditySummary = response.data.main.humidity;
+  let humidityElement = document.querySelector(".humidity");
+  humidityElement.innerHTML = `humidity: ${humiditySummary}%`;
+
 
 }
 

@@ -96,6 +96,15 @@ body {
   font-size: 14px;
 }
 
+.wind-speed {
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.humidity {
+  font-weight: 300;
+  font-size: 12px;
+}
 .second-circle {
   border: 1px solid #240403a9;
   border-radius: 50%;
