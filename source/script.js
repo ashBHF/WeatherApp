@@ -30,6 +30,13 @@ getDate.innerHTML = `${day}, ${time}`;
 navigator.geolocation.getCurrentPosition(currentPositionWeather);
 */
 
+function getForecast(coordinates) {
+  let apiKey = "c284e41e5087d96e9a0af3b148134460";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude={part}&appid=${apiKey}&units=metric`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function populateCircleOne(response) {
 
   celsiusTemperature = response.data.main.temp;
@@ -65,6 +72,8 @@ function populateCircleOne(response) {
   let humiditySummary = response.data.main.humidity;
   let humidityElement = document.querySelector(".humidity");
   humidityElement.innerHTML = `humidity: ${humiditySummary}%`;
+
+  getForecast(response.data.coord);
 }
 
 function search(city) {
@@ -110,5 +119,8 @@ fahrenheitLink.addEventListener("click", displayFarenheitTemperature);
 let celsiusLink = document.querySelector("#celsius-conversion");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
+function displayForecast(response) {
+  console.log(response.data.daily);
 
+}
 search("fort collins");
