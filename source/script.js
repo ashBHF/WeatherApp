@@ -87,6 +87,8 @@ citySearch.addEventListener("submit", handleSubmit);
 function displayFarenheitTemperature(event) {
   event.preventDefault();
   let currentTemperature = document.querySelector("#number");
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
   let farenheitEquation = (celsiusTemperature * 9) / 5 + 32;
   currentTemperature.innerHTML = `${Math.round(farenheitEquation)}°`;
 }
@@ -94,6 +96,8 @@ function displayFarenheitTemperature(event) {
 function displayCelsiusTemperature(event) {
   event.preventDefault();
   let currentTemperature = document.querySelector("#number");
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
   currentTemperature.innerHTML = `${Math.round(celsiusTemperature)}°`;
 
 }
