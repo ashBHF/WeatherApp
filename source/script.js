@@ -130,10 +130,14 @@ function formatDay(timestamp) {
 
 
 function displayForecast(response) {
-  console.log(response.data.daily[1].temp);
+  console.log(response.data.daily[2].weather);
 
   let secondCircleDay = document.querySelector(".day");
   secondCircleDay.innerHTML = formatDay(response.data.daily[1].dt);
+
+  let pngIdentifier2 = response.data.daily[1].weather[0].icon;
+  let weatherIcon2 = document.querySelector("#weather-icon2");
+  weatherIcon2.setAttribute("src", `https://openweathermap.org/img/wn/${pngIdentifier2}@2x.png`); 
 
   let secondCircleWeather = document.querySelector(".weather2");
   secondCircleWeather.innerHTML = response.data.daily[1].weather[0].description;
@@ -149,6 +153,10 @@ function displayForecast(response) {
 
   let thirdCircleDay = document.querySelector(".day3");
   thirdCircleDay.innerHTML = formatDay(response.data.daily[2].dt);
+
+  let pngIdentifier3 = response.data.daily[2].weather[0].icon;
+  let weatherIcon3 = document.querySelector("#weather-icon3");
+  weatherIcon3.setAttribute("src", `https://openweathermap.org/img/wn/${pngIdentifier3}@2x.png`); 
 
   let thirdCircleWeather = document.querySelector(".weather3");
   thirdCircleWeather.innerHTML = response.data.daily[2].weather[0].description;

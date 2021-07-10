@@ -74,33 +74,6 @@ body {
   font-size: 25px;
 }
 
-/*#celsius {
-  font-size: 14px;
-  transition: all 100ms linear;
-}
-
-#celsius:hover {
-  color: blue;
-  font-weight: 400;
-  cursor: pointer;
-}
-
-#divider {
-  font-weight: 500;
-  font-size: 14px;
-}
-
-#farenheit {
-  font-size: 14px;
-  transition: all 100ms linear;
-}
-
-#farenheit:hover {
-  color: blue;
-  font-weight: 500;
-  cursor: pointer;
-}
-*/
 .temp-range {
   font-weight: 300;
   font-size: 14px;
@@ -141,6 +114,17 @@ body {
   font-size: 14px;
 }
 
+#weather-icon2 {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.weather-pic-combo2 {
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
 .avg-temp2 {
   font-weight: 400;
   font-size: 25px;
@@ -170,6 +154,17 @@ body {
   padding-top: 7px;
   font-weight: 400;
   font-size: 18px;
+}
+
+#weather-icon3 {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.weather-pic-combo3 {
+  margin-top: -10px;
+  margin-bottom: -10px;
 }
 
 .weather3 {
