@@ -112,6 +112,7 @@ body {
 .weather2 {
   font-weight: 400;
   font-size: 14px;
+  margin-left: -5px; 
 }
 
 #weather-icon2 {
@@ -170,6 +171,7 @@ body {
 .weather3 {
   font-weight: 300;
   font-size: 12px;
+  margin-left: -5px; 
 }
 
 .avg-temp3 {
