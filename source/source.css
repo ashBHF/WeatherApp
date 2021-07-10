@@ -192,6 +192,12 @@ body {
   text-align: center;
 }
 
+#weather-icon4 {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
 .signature {
   text-align: center;
   font-size: 12px;

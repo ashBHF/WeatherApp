@@ -29,8 +29,24 @@ getDate.innerHTML = `${day}, ${time}`;
 
 navigator.geolocation.getCurrentPosition(currentPositionWeather);
 */
+function displayForecastAbbreviated(){
+  let forecastElement = document.querySelector("#weather-forecast");
 
+  let forecastHTML = `<div class="row">`;
 
+  let days = ["Tues", "Wed", "Thurs"];
+
+  days.forEach(function(day) { 
+
+  forecastHTML = forecastHTML + `
+          <div class ="col-4 day4"><img src="https://openweathermap.org/img/wn/01d@2x.png" id = "weather-icon4"/><span>${day}</span></br>sunny</br>70° - 75°</div>`
+ 
+
+})
+
+forecastHTML = forecastHTML + `</div>`;
+forecastElement.innerHTML = forecastHTML;
+}
 
 function populateCircleOne(response) {
 
@@ -170,4 +186,6 @@ function displayForecast(response) {
   let thirdCircleMax = document.querySelector("#third-circle-max");
   thirdCircleMax.innerHTML = ` ${Math.round(response.data.daily[2].temp.max)}°`; 
 }
+
+displayForecastAbbreviated();
 search("fort collins");
