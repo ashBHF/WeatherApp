@@ -29,24 +29,7 @@ getDate.innerHTML = `${day}, ${time}`;
 
 navigator.geolocation.getCurrentPosition(currentPositionWeather);
 */
-function displayForecastAbbreviated(){
-  let forecastElement = document.querySelector("#weather-forecast");
 
-  let forecastHTML = `<div class="row">`;
-
-  let days = ["Tues", "Wed", "Thurs"];
-
-  days.forEach(function(day) { 
-
-  forecastHTML = forecastHTML + `
-          <div class ="col-4 day4"><img src="https://openweathermap.org/img/wn/01d@2x.png" id = "weather-icon4"/><span>${day}</span></br>sunny</br>70° - 75°</div>`
- 
-
-})
-
-forecastHTML = forecastHTML + `</div>`;
-forecastElement.innerHTML = forecastHTML;
-}
 
 function populateCircleOne(response) {
 
@@ -134,6 +117,7 @@ function getForecast(coordinates) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude={part}&appid=${apiKey}&units=metric`;
   console.log(apiUrl);
   axios.get(apiUrl).then(displayForecast);
+  axios.get(apiUrl).then(displayForecastAbbreviated);
 }
 
 function formatDay(timestamp) {
@@ -146,7 +130,7 @@ function formatDay(timestamp) {
 
 
 function displayForecast(response) {
-  console.log(response.data.daily[2].weather);
+  console.log(response.data.daily);
 
   let secondCircleDay = document.querySelector(".day");
   secondCircleDay.innerHTML = formatDay(response.data.daily[1].dt);
@@ -187,5 +171,26 @@ function displayForecast(response) {
   thirdCircleMax.innerHTML = ` ${Math.round(response.data.daily[2].temp.max)}°`; 
 }
 
-displayForecastAbbreviated();
+function displayForecastAbbreviated(response){
+  let forecastList = response.data.daily; 
+  let forecastElement = document.querySelector("#weather-forecast");
+
+  let forecastHTML = `<div class="row">`;
+
+
+ // icon at 10:57
+  forecastList.forEach(function(forecastDay, index) { 
+    if (index >2 && index < 6) {
+  forecastHTML = forecastHTML + `
+          <div class ="col-4 day4"><img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" id = "weather-icon4"/>
+          <span>${formatDay(forecastDay.dt)}</span></br></br><span>${Math.round(forecastDay.temp.min)}° - </span><span>${Math.round(forecastDay.temp.max)}°</span></div>`
+ 
+}
+})
+
+forecastHTML = forecastHTML + `</div>`;
+forecastElement.innerHTML = forecastHTML;
+}
+
+//displayForecastAbbreviated();
 search("fort collins");
