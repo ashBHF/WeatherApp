@@ -30,12 +30,7 @@ getDate.innerHTML = `${day}, ${time}`;
 navigator.geolocation.getCurrentPosition(currentPositionWeather);
 */
 
-function getForecast(coordinates) {
-  let apiKey = "c284e41e5087d96e9a0af3b148134460";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude={part}&appid=${apiKey}&units=metric`;
-  console.log(apiUrl);
-  axios.get(apiUrl).then(displayForecast);
-}
+
 
 function populateCircleOne(response) {
 
@@ -108,7 +103,6 @@ function displayCelsiusTemperature(event) {
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
   currentTemperature.innerHTML = `${Math.round(celsiusTemperature)}°`;
-
 }
 
 let celsiusTemperature = null;
@@ -119,8 +113,53 @@ fahrenheitLink.addEventListener("click", displayFarenheitTemperature);
 let celsiusLink = document.querySelector("#celsius-conversion");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
-function displayForecast(response) {
-  console.log(response.data.daily);
+function getForecast(coordinates) {
+  let apiKey = "c284e41e5087d96e9a0af3b148134460";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude={part}&appid=${apiKey}&units=metric`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
+}
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+
+  return days[day];
+}
+
+
+function displayForecast(response) {
+  console.log(response.data.daily[1].temp);
+
+  let secondCircleDay = document.querySelector(".day");
+  secondCircleDay.innerHTML = formatDay(response.data.daily[1].dt);
+
+  let secondCircleWeather = document.querySelector(".weather2");
+  secondCircleWeather.innerHTML = response.data.daily[1].weather[0].description;
+
+  let secondCircleTemp = document.querySelector(".avg-temp2");
+  secondCircleTemp.innerHTML = `${Math.round(response.data.daily[1].temp.day)}°`;
+
+  let secondCircleMin = document.querySelector("#second-circle-min");
+  secondCircleMin.innerHTML = `${Math.round(response.data.daily[1].temp.min)}° -`;  
+
+  let secondCircleMax = document.querySelector("#second-circle-max");
+  secondCircleMax.innerHTML = ` ${Math.round(response.data.daily[1].temp.max)}°`; 
+
+  let thirdCircleDay = document.querySelector(".day3");
+  thirdCircleDay.innerHTML = formatDay(response.data.daily[2].dt);
+
+  let thirdCircleWeather = document.querySelector(".weather3");
+  thirdCircleWeather.innerHTML = response.data.daily[2].weather[0].description;
+
+  let thirdCircleTemp = document.querySelector(".avg-temp3");
+  thirdCircleTemp.innerHTML = `${Math.round(response.data.daily[2].temp.day)}°`;
+
+  let thirdCircleMin = document.querySelector("#third-circle-min");
+  thirdCircleMin.innerHTML = `${Math.round(response.data.daily[2].temp.min)}° -`;  
+
+  let thirdCircleMax = document.querySelector("#third-circle-max");
+  thirdCircleMax.innerHTML = ` ${Math.round(response.data.daily[2].temp.max)}°`; 
 }
 search("fort collins");
