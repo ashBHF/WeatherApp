@@ -14,7 +14,9 @@ let days = [
 let day = days[today.getDay()];
 let time = today.toLocaleTimeString([], { timeStyle: "short" });
 
-getDate.innerHTML = `${day}, ${time}`;
+getDate.innerHTML = `${day}`;
+
+//${time}
 
 
 //https://api.openweathermap.org/data/2.5/weather?q=denver&appid=c284e41e5087d96e9a0af3b148134460
@@ -32,8 +34,6 @@ navigator.geolocation.getCurrentPosition(currentPositionWeather);
 
 
 function populateCircleOne(response) {
-
-  celsiusTemperature = response.data.main.temp;
   
   let city = response.data.name;
   let cityHeader = document.querySelector(".city");
@@ -41,7 +41,7 @@ function populateCircleOne(response) {
 
   let temperature = Math.round(response.data.main.temp);
   let currentTemperature = document.querySelector("#number");
-  currentTemperature.innerHTML = `${temperature}°`;
+  currentTemperature.innerHTML = `${temperature}°F`;
 
   let weather = response.data.weather[0].description;
   let weatherHeader = document.querySelector(".weather");
@@ -72,7 +72,7 @@ function populateCircleOne(response) {
 
 function search(city) {
   let apiKey = "c284e41e5087d96e9a0af3b148134460";
-  let units = "metric";
+  let units = "imperial";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
   axios.get(`${apiUrl}`).then(populateCircleOne);
 }
@@ -87,34 +87,9 @@ function handleSubmit(event) {
 let citySearch = document.querySelector("#city-search");
 citySearch.addEventListener("submit", handleSubmit);
 
-function displayFarenheitTemperature(event) {
-  event.preventDefault();
-  let currentTemperature = document.querySelector("#number");
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  let farenheitEquation = (celsiusTemperature * 9) / 5 + 32;
-  currentTemperature.innerHTML = `${Math.round(farenheitEquation)}°`;
-}
-
-function displayCelsiusTemperature(event) {
-  event.preventDefault();
-  let currentTemperature = document.querySelector("#number");
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  currentTemperature.innerHTML = `${Math.round(celsiusTemperature)}°`;
-}
-
-let celsiusTemperature = null;
-
-let fahrenheitLink = document.querySelector("#farenheit-conversion");
-fahrenheitLink.addEventListener("click", displayFarenheitTemperature);
-
-let celsiusLink = document.querySelector("#celsius-conversion");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
-
 function getForecast(coordinates) {
   let apiKey = "c284e41e5087d96e9a0af3b148134460";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude={part}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude={part}&appid=${apiKey}&units=imperial`;
   console.log(apiUrl);
   axios.get(apiUrl).then(displayForecast);
   axios.get(apiUrl).then(displayForecastAbbreviated);
@@ -143,7 +118,7 @@ function displayForecast(response) {
   secondCircleWeather.innerHTML = response.data.daily[1].weather[0].description;
 
   let secondCircleTemp = document.querySelector(".avg-temp2");
-  secondCircleTemp.innerHTML = `${Math.round(response.data.daily[1].temp.day)}°`;
+  secondCircleTemp.innerHTML = `${Math.round(response.data.daily[1].temp.day)}°F`;
 
   let secondCircleMin = document.querySelector("#second-circle-min");
   secondCircleMin.innerHTML = `${Math.round(response.data.daily[1].temp.min)}° -`;  
@@ -158,11 +133,8 @@ function displayForecast(response) {
   let weatherIcon3 = document.querySelector("#weather-icon3");
   weatherIcon3.setAttribute("src", `https://openweathermap.org/img/wn/${pngIdentifier3}@2x.png`); 
 
-  let thirdCircleWeather = document.querySelector(".weather3");
-  thirdCircleWeather.innerHTML = response.data.daily[2].weather[0].description;
-
   let thirdCircleTemp = document.querySelector(".avg-temp3");
-  thirdCircleTemp.innerHTML = `${Math.round(response.data.daily[2].temp.day)}°`;
+  thirdCircleTemp.innerHTML = `${Math.round(response.data.daily[2].temp.day)}°F`;
 
   let thirdCircleMin = document.querySelector("#third-circle-min");
   thirdCircleMin.innerHTML = `${Math.round(response.data.daily[2].temp.min)}° -`;  
@@ -177,13 +149,11 @@ function displayForecastAbbreviated(response){
 
   let forecastHTML = `<div class="row">`;
 
-
- // icon at 10:57
   forecastList.forEach(function(forecastDay, index) { 
     if (index >2 && index < 6) {
   forecastHTML = forecastHTML + `
           <div class ="col-4 day4"><img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" id = "weather-icon4"/>
-          <span>${formatDay(forecastDay.dt)}</span></br></br><span>${Math.round(forecastDay.temp.min)}° - </span><span>${Math.round(forecastDay.temp.max)}°</span></div>`
+          <span id = "day-list">${formatDay(forecastDay.dt)}</span></br><span>${Math.round(forecastDay.temp.min)}° - </span><span>${Math.round(forecastDay.temp.max)}°</span></div>`
  
 }
 })
