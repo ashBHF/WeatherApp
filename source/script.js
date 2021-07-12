@@ -13,13 +13,12 @@ let days = [
 ];
 
 let day = days[today.getDay()];
+let time = today.toLocaleTimeString([], { timeStyle: "short" });
+
 getDate.innerHTML = `${day}`;
 
 let getTime = document.querySelector(".time");
-
-let time = today.toLocaleTimeString([], { timeStyle: "short" });
 getTime.innerHTML = `Last updated: ${time}`;
-
 
 //https://api.openweathermap.org/data/2.5/weather?q=denver&appid=c284e41e5087d96e9a0af3b148134460
 
@@ -70,7 +69,6 @@ function populateCircleOne(response) {
   humidityElement.innerHTML = `humidity: ${humiditySummary}%`;
 
   getForecast(response.data.coord);
-  console.log(response.data)
 }
 
 function search(city) {
@@ -108,7 +106,6 @@ function formatDay(timestamp) {
 
 
 function displayForecast(response) {
-  console.log(response.data.daily);
 
   let secondCircleDay = document.querySelector(".day");
   secondCircleDay.innerHTML = formatDay(response.data.daily[1].dt);
@@ -166,5 +163,4 @@ forecastHTML = forecastHTML + `</div>`;
 forecastElement.innerHTML = forecastHTML;
 }
 
-//displayForecastAbbreviated();
 search("fort collins");
