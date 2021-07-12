@@ -11,12 +11,14 @@ let days = [
   "Friday",
   "Saturday",
 ];
-let day = days[today.getDay()];
-let time = today.toLocaleTimeString([], { timeStyle: "short" });
 
+let day = days[today.getDay()];
 getDate.innerHTML = `${day}`;
 
-//${time}
+let getTime = document.querySelector(".time");
+
+let time = today.toLocaleTimeString([], { timeStyle: "short" });
+getTime.innerHTML = `Last updated: ${time}`;
 
 
 //https://api.openweathermap.org/data/2.5/weather?q=denver&appid=c284e41e5087d96e9a0af3b148134460
@@ -68,6 +70,7 @@ function populateCircleOne(response) {
   humidityElement.innerHTML = `humidity: ${humiditySummary}%`;
 
   getForecast(response.data.coord);
+  console.log(response.data)
 }
 
 function search(city) {
@@ -152,8 +155,9 @@ function displayForecastAbbreviated(response){
   forecastList.forEach(function(forecastDay, index) { 
     if (index >2 && index < 6) {
   forecastHTML = forecastHTML + `
-          <div class ="col-4 day4"><img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" id = "weather-icon4"/>
-          <span id = "day-list">${formatDay(forecastDay.dt)}</span></br><span>${Math.round(forecastDay.temp.min)}° - </span><span>${Math.round(forecastDay.temp.max)}°</span></div>`
+          <div class ="col-4 day4"><span id = "weather-pic-combo-abbreviated"><img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" id = "weather-icon4"/>
+          <span id = "day-list">${formatDay(forecastDay.dt)}</span></span><div id = "temp-range"><span>  ${Math.round(forecastDay.temp.min)}° - </span><span>${Math.round(forecastDay.temp.max)}°</span></div>
+          </div>`
  
 }
 })
